@@ -53,6 +53,7 @@ public class PessoaResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
 		 Pessoa pessoa = pessoaRepository.findOne(codigo);
+		 
 		 return pessoa != null ? ResponseEntity.ok(pessoa) : ResponseEntity.notFound().build();
 	}
 	
@@ -68,4 +69,9 @@ public class PessoaResource {
 		return ResponseEntity.ok(pessoaSalva);
 	}
 	
+	@PutMapping("/{codigo}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+		pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
+	}
 }
